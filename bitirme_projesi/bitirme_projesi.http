@@ -1,0 +1,6 @@
+@bitirme_projesi_HostAddress = http://localhost:5103
+
+GET {{bitirme_projesi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
