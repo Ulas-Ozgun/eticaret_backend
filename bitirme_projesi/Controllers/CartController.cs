@@ -16,7 +16,7 @@ namespace bitirme_projesi.Controllers
             _context = context;
         }
 
-        // 🔹 1️⃣ Kullanıcının sepetini getir (Geliştirilmiş versiyon)
+        // 🔹 1️⃣ Kullanıcının sepetini getir (Size dahil)
         [HttpGet("get/{userId}")]
         public IActionResult GetCart(int userId)
         {
@@ -29,6 +29,7 @@ namespace bitirme_projesi.Controllers
                     {
                         c.Id,
                         c.Quantity,
+                        c.Size, // 🔹 BEDEN/NUMARA
                         Product = new
                         {
                             c.Product.Id,
@@ -44,7 +45,6 @@ namespace bitirme_projesi.Controllers
                 if (!cartItems.Any())
                     return NotFound(new { message = "Sepetiniz boş veya kullanıcı bulunamadı." });
 
-                // 🔹 Toplam sepet tutarını hesapla
                 var totalCartAmount = cartItems.Sum(c => c.Total);
 
                 return Ok(new
@@ -58,14 +58,14 @@ namespace bitirme_projesi.Controllers
             {
                 return BadRequest(new
                 {
-                    message = "Sepet yüklenemedi ",
+                    message = "Sepet yüklenemedi.",
                     error = ex.Message,
                     inner = ex.InnerException?.Message
                 });
             }
         }
 
-        // 🔹 2️⃣ Sepete ürün ekle
+        // 🔹 2️⃣ Sepete ürün ekle (SelectedSize eklendi)
         [HttpPost]
         public IActionResult AddToCart([FromBody] AddCartItemDto dto)
         {
@@ -73,12 +73,13 @@ namespace bitirme_projesi.Controllers
             var product = _context.Products.Find(dto.ProductId);
 
             if (user == null || product == null)
-            {
                 return BadRequest(new { message = "Kullanıcı veya ürün bulunamadı." });
-            }
 
+            // Aynı ürün ve aynı beden varsa miktar artır
             var existingItem = _context.Carts.FirstOrDefault(
-                c => c.UserId == dto.UserId && c.ProductId == dto.ProductId
+                c => c.UserId == dto.UserId &&
+                     c.ProductId == dto.ProductId &&
+                     c.Size == dto.SelectedSize
             );
 
             if (existingItem != null)
@@ -91,17 +92,53 @@ namespace bitirme_projesi.Controllers
                 {
                     UserId = dto.UserId,
                     ProductId = dto.ProductId,
-                    Quantity = dto.Quantity
+                    Quantity = dto.Quantity,
+                    Size = dto.SelectedSize // 🔹 BEDEN/NUMARA BURADA KAYIT OLUYOR
                 };
 
                 _context.Carts.Add(cartItem);
             }
 
             _context.SaveChanges();
-            return Ok(new { message = "Ürün sepete eklendi " });
+            return Ok(new { message = "Ürün sepete eklendi." });
         }
 
-        // 🔹 3️⃣ Sepet öğesini güncelle (miktar artır / azalt)
+        // 🔹 3️⃣ Satın alma işlemi (stok düşürme)
+        [HttpPost("purchase/{userId}")]
+        public IActionResult Purchase(int userId)
+        {
+            var cartItems = _context.Carts
+                .Where(c => c.UserId == userId)
+                .Include(c => c.Product)
+                .ToList();
+
+            if (!cartItems.Any())
+                return BadRequest(new { message = "Sepetiniz boş." });
+
+            foreach (var item in cartItems)
+            {
+                var product = item.Product;
+
+                if (product.Stock < item.Quantity)
+                {
+                    return BadRequest(new { message = $"{product.Name} ürünü için yeterli stok yok." });
+                }
+
+                product.Stock -= item.Quantity;
+
+                if (product.Stock <= 0)
+                    product.Status = "Tükendi";
+
+                _context.Products.Update(product);
+            }
+
+            _context.Carts.RemoveRange(cartItems);
+            _context.SaveChanges();
+
+            return Ok(new { message = "Satın alma işlemi başarılı! 🎉" });
+        }
+
+        // 🔹 4️⃣ Sepet öğesini güncelle (miktar artır / azalt)
         [HttpPut("{id}")]
         public IActionResult UpdateCartItem(int id, [FromBody] AddCartItemDto dto)
         {
@@ -114,15 +151,13 @@ namespace bitirme_projesi.Controllers
                 if (cartItem == null)
                     return NotFound(new { message = "Ürün sepetinizde bulunamadı." });
 
-                // 🔸 Miktarı güncelle
                 cartItem.Quantity = dto.Quantity;
-
                 _context.Carts.Update(cartItem);
                 _context.SaveChanges();
 
                 return Ok(new
                 {
-                    message = "Sepet öğesi güncellendi ",
+                    message = "Sepet öğesi güncellendi.",
                     updatedItem = new
                     {
                         cartItem.Id,
@@ -141,13 +176,13 @@ namespace bitirme_projesi.Controllers
             {
                 return BadRequest(new
                 {
-                    message = "Güncelleme sırasında hata oluştu ",
+                    message = "Güncelleme sırasında hata oluştu.",
                     error = ex.Message
                 });
             }
         }
 
-        // 🔹 4️⃣ Sepet öğesini sil
+        // 🔹 5️⃣ Sepet öğesini sil
         [HttpDelete("{id}")]
         public IActionResult RemoveItem(int id)
         {
@@ -155,20 +190,20 @@ namespace bitirme_projesi.Controllers
             {
                 var cartItem = _context.Carts.FirstOrDefault(c => c.Id == id);
                 if (cartItem == null)
-                    return NotFound("Ürün bulunamadı");
+                    return NotFound("Ürün bulunamadı.");
 
                 _context.Carts.Remove(cartItem);
                 _context.SaveChanges();
 
-                return Ok(" Ürün sepetten silindi");
+                return Ok("Ürün sepetten silindi.");
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = "Silme işlemi başarısız", error = ex.Message });
+                return BadRequest(new { message = "Silme işlemi başarısız.", error = ex.Message });
             }
         }
 
-        // 🔹 5️⃣ Kullanıcının sepetini tamamen temizle (Satın al işlemi)
+        // 🔹 6️⃣ Sepeti tamamen temizle
         [HttpDelete("clear/{userId}")]
         public IActionResult ClearCart(int userId)
         {
@@ -182,11 +217,11 @@ namespace bitirme_projesi.Controllers
                 _context.Carts.RemoveRange(userCartItems);
                 _context.SaveChanges();
 
-                return Ok(new { message = "Sepet başarıyla temizlendi " });
+                return Ok(new { message = "Sepet başarıyla temizlendi." });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = "Sepet temizlenemedi", error = ex.Message });
+                return BadRequest(new { message = "Sepet temizlenemedi.", error = ex.Message });
             }
         }
     }

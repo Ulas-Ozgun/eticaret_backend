@@ -132,3 +132,4 @@ C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\obj\Debug\net8.0\ref
 C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\obj\Debug\net8.0\bitirme_projesi.pdb
 C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\obj\Debug\net8.0\bitirme_projesi.genruntimeconfig.cache
 C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\obj\Debug\net8.0\ref\bitirme_projesi.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\obj\Debug\net8.0\bitirme_projesi.sourcelink.json
