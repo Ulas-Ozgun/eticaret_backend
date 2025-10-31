@@ -1,7 +1,10 @@
-using bitirme_projesi.Data;
+﻿using bitirme_projesi.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization; // 🔹 Bunu en üste ekle, yoksa hata verir
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 🔹 CORS (React için izinler)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
@@ -13,10 +16,12 @@ builder.Services.AddCors(options =>
         });
 });
 
+// 🔹 Controller + JSON döngü engelleme ayarı
+builder.Services.AddControllers()
+    .AddJsonOptions(x =>
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-builder.Services.AddControllers();
-
-// PostgreSQL ba�lant�s�
+// 🔹 PostgreSQL bağlantısı
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -25,14 +30,17 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// 🔹 Swagger sadece geliştirme ortamında aktif
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
 app.Run();

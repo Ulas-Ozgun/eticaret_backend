@@ -13,4 +13,6 @@ public class Product
 
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+    public int Stock { get; set; } // stok adedi
+    public string? Status { get; set; } // "Stokta var" / "Tükendi"
 }
