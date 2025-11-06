@@ -104,6 +104,7 @@ namespace bitirme_projesi.Controllers
         }
 
         // 🔹 3️⃣ Satın alma işlemi (stok düşürme)
+        // 🔹 Satın alma işlemi (stok düşürme)
         [HttpPost("purchase/{userId}")]
         public IActionResult Purchase(int userId)
         {
@@ -124,19 +125,32 @@ namespace bitirme_projesi.Controllers
                     return BadRequest(new { message = $"{product.Name} ürünü için yeterli stok yok." });
                 }
 
-                product.Stock -= item.Quantity;
+                // 🔹 Siparişi Orders tablosuna kaydet
+                var order = new Order
+                {
+                    UserId = userId,
+                    ProductId = product.Id,
+                    Size = item.Size,
+                    Quantity = item.Quantity,
+                    TotalPrice = product.Price * item.Quantity
+                };
+                _context.Orders.Add(order);
 
+                // 🔹 Stoktan düş
+                product.Stock -= item.Quantity;
                 if (product.Stock <= 0)
                     product.Status = "Tükendi";
 
                 _context.Products.Update(product);
             }
 
+            // 🔹 Sepeti temizle
             _context.Carts.RemoveRange(cartItems);
             _context.SaveChanges();
 
             return Ok(new { message = "Satın alma işlemi başarılı! 🎉" });
         }
+
 
         // 🔹 4️⃣ Sepet öğesini güncelle (miktar artır / azalt)
         [HttpPut("{id}")]
