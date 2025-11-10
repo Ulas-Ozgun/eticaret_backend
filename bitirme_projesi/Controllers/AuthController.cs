@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using bitirme_projesi.Data;
 using bitirme_projesi.Models;
+using System.Linq;
 
 namespace bitirme_projesi.Controllers
 {
@@ -15,7 +16,7 @@ namespace bitirme_projesi.Controllers
             _context = context;
         }
 
-        
+        // 🔹 Normal kullanıcı kaydı
         [HttpPost("register")]
         public IActionResult Register([FromBody] User user)
         {
@@ -25,6 +26,9 @@ namespace bitirme_projesi.Controllers
             if (_context.Users.Any(u => u.Email == user.Email))
                 return BadRequest(new { message = "Bu e-posta zaten kayıtlı." });
 
+            // Varsayılan rol: User
+            user.Role = "User";
+
             _context.Users.Add(user);
             _context.SaveChanges();
 
@@ -33,11 +37,37 @@ namespace bitirme_projesi.Controllers
                 message = "Kayıt başarılı!",
                 userId = user.Id,
                 name = user.Name,
-                email = user.Email
+                email = user.Email,
+                role = user.Role
             });
         }
 
-        
+        // 🔹 Admin kaydı (sadece 1 kere kullanılabilir)
+        [HttpPost("register-admin")]
+        public IActionResult RegisterAdmin([FromBody] User admin)
+        {
+            if (string.IsNullOrEmpty(admin.Email) || string.IsNullOrEmpty(admin.Password))
+                return BadRequest(new { message = "E-posta ve şifre zorunludur." });
+
+            if (_context.Users.Any(u => u.Email == admin.Email))
+                return BadRequest(new { message = "Bu e-posta zaten kayıtlı." });
+
+            admin.Role = "Admin";
+
+            _context.Users.Add(admin);
+            _context.SaveChanges();
+
+            return Ok(new
+            {
+                message = "Admin başarıyla oluşturuldu!",
+                adminId = admin.Id,
+                name = admin.Name,
+                email = admin.Email,
+                role = admin.Role
+            });
+        }
+
+        // 🔹 Login (hem User hem Admin)
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
@@ -46,17 +76,33 @@ namespace bitirme_projesi.Controllers
                 u.Password == loginRequest.Password);
 
             if (user == null)
-                return Unauthorized("Geçersiz e-posta veya şifre.");
+                return Unauthorized(new { message = "Geçersiz e-posta veya şifre." });
 
             return Ok(new
             {
-                Message = "Giriş başarılı",
-                UserId = user.Id,
-                Name = user.Name,
-                Email = user.Email
+                message = "Giriş başarılı!",
+                userId = user.Id,
+                name = user.Name,
+                email = user.Email,
+                role = user.Role
             });
         }
 
+        // 🔹 Tüm kullanıcıları listele (sadece admin erişebilir)
+        [HttpGet("users")]
+        public IActionResult GetAllUsers()
+        {
+            var users = _context.Users
+                .Select(u => new
+                {
+                    u.Id,
+                    u.Name,
+                    u.Email,
+                    u.Role
+                })
+                .ToList();
 
+            return Ok(users);
+        }
     }
 }
