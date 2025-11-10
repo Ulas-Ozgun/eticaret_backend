@@ -45,5 +45,45 @@ namespace bitirme_projesi.Controllers
 
             return Ok(orders);
         }
+
+        // 🔹 2️⃣ Tüm siparişleri getir (Admin)
+        [HttpGet("all")]
+        public IActionResult GetAllOrders()
+        {
+            var orders = _context.Orders
+                .Include(o => o.Product)
+                .Include(o => o.User)
+                .Select(o => new
+                {
+                    o.Id,
+                    UserName = o.User.Name,
+                    ProductName = o.Product.Name,
+                    o.Quantity,
+                    o.TotalPrice,
+                    o.OrderDate,
+                    o.Status
+                })
+                .ToList();
+
+            return Ok(orders);
+        }
+
+        // 🔹 3️⃣ Sipariş durumu güncelle (PUT)
+        [HttpPut("{id}")]
+        public IActionResult UpdateOrderStatus(int id, [FromBody] UpdateOrderStatusDto dto)
+        {
+            if (dto == null || string.IsNullOrWhiteSpace(dto.Status))
+                return BadRequest(new { message = "Geçerli bir durum bilgisi gönderilmedi." });
+
+            var order = _context.Orders.FirstOrDefault(o => o.Id == id);
+
+            if (order == null)
+                return NotFound(new { message = "Sipariş bulunamadı." });
+
+            order.Status = dto.Status;
+            _context.SaveChanges();
+
+            return Ok(new { message = "Sipariş durumu güncellendi.", order });
+        }
     }
 }

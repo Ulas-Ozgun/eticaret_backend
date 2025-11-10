@@ -24,6 +24,8 @@ namespace bitirme_projesi.Models
         public decimal TotalPrice { get; set; }
 
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
-        
+        public string Status { get; set; } = "Beklemede";
+
+
     }
 }
