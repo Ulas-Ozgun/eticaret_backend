@@ -39,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowReactApp");
 
+app.UseStaticFiles(); // ✅ Bu olmazsa resimler görünmez
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
