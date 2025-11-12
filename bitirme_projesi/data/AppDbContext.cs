@@ -2,6 +2,7 @@
 using bitirme_projesi.Models;
 
 
+
 namespace bitirme_projesi.Data
 {
     public class AppDbContext : DbContext
@@ -16,8 +17,19 @@ namespace bitirme_projesi.Data
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Review> Reviews { get; set; }
-       
+        public DbSet<Beden> beden { get; set; }
+        public DbSet<UrunBeden> urun_beden { get; set; }
+        public DbSet<Numara> numara { get; set; }
+        public DbSet<UrunNumara> urun_numara { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Beden>().ToTable("beden");
+            modelBuilder.Entity<UrunBeden>().ToTable("urun_beden");
+            modelBuilder.Entity<Numara>().ToTable("numara");
+            modelBuilder.Entity<UrunNumara>().ToTable("urun_numara");
+        }
 
     }
 }
