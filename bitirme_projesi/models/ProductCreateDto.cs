@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace bitirme_projesi.Models
-
 {
     public class ProductCreateDto
     {
         [Required]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         public decimal Price { get; set; }
@@ -18,6 +18,10 @@ namespace bitirme_projesi.Models
 
         public int CategoryId { get; set; }
 
-        public IFormFile ImageFile { get; set; } // 🔹 Yüklenen dosya
+        public IFormFile? ImageFile { get; set; }  // resim dosyası
+
+        public List<int>? BedenIds { get; set; }
+
+        public List<int>? NumaraIds { get; set; }
     }
 }

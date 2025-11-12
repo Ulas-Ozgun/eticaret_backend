@@ -1,12 +1,24 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\04e42b48-a8cc-4aef-9960-1d7d245769a2.png",
+      "PackagePath": "staticwebassets\\images\\04e42b48-a8cc-4aef-9960-1d7d245769a2.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\06862077-e6a5-49ca-bf3d-af1558c7e9f1.webp",
+      "PackagePath": "staticwebassets\\images\\06862077-e6a5-49ca-bf3d-af1558c7e9f1.webp"
+    },
+    {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\1cdfcdc7-c1fa-4c0f-83ea-3f7642965896.jpg",
       "PackagePath": "staticwebassets\\images\\1cdfcdc7-c1fa-4c0f-83ea-3f7642965896.jpg"
     },
     {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\2a938a32-3484-40e6-8ddd-5371aa0aa0ad.png",
       "PackagePath": "staticwebassets\\images\\2a938a32-3484-40e6-8ddd-5371aa0aa0ad.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\3fae8b36-95b1-4957-8f0c-e5cbf990ecc6.webp",
+      "PackagePath": "staticwebassets\\images\\3fae8b36-95b1-4957-8f0c-e5cbf990ecc6.webp"
     },
     {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\4816ca54-950c-46e2-a86a-249d7d21d735.png",
@@ -21,6 +33,10 @@
       "PackagePath": "staticwebassets\\images\\4c7134ae-1e99-4cbe-932a-3a81f03dc6e3.png"
     },
     {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\566b814a-b2ca-4d9f-8b31-50720219cfa4.jpg",
+      "PackagePath": "staticwebassets\\images\\566b814a-b2ca-4d9f-8b31-50720219cfa4.jpg"
+    },
+    {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\5bca444e-8c61-4280-ad3f-2c70666cddd9.png",
       "PackagePath": "staticwebassets\\images\\5bca444e-8c61-4280-ad3f-2c70666cddd9.png"
     },
@@ -33,12 +49,28 @@
       "PackagePath": "staticwebassets\\images\\8c6a42c5-029b-485c-b53a-febba66cf996.jpg"
     },
     {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\9c80a3ff-2ae6-4720-9363-56d00d7c5e69.webp",
+      "PackagePath": "staticwebassets\\images\\9c80a3ff-2ae6-4720-9363-56d00d7c5e69.webp"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\a0992dd6-9c6f-43b7-aeda-37822c487a97.jpg",
+      "PackagePath": "staticwebassets\\images\\a0992dd6-9c6f-43b7-aeda-37822c487a97.jpg"
+    },
+    {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\aspor.png",
       "PackagePath": "staticwebassets\\images\\aspor.png"
     },
     {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\b9b20670-e61e-4b0d-b933-efea0e28136f.jpg",
+      "PackagePath": "staticwebassets\\images\\b9b20670-e61e-4b0d-b933-efea0e28136f.jpg"
+    },
+    {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\bot.png",
       "PackagePath": "staticwebassets\\images\\bot.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\c884d68d-b8b3-478c-bba7-ea6766bfb99c.webp",
+      "PackagePath": "staticwebassets\\images\\c884d68d-b8b3-478c-bba7-ea6766bfb99c.webp"
     },
     {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\canta.png",
@@ -51,6 +83,10 @@
     {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\d47cdfd4-80bc-4bc9-a487-07ed20e9ea00.jpg",
       "PackagePath": "staticwebassets\\images\\d47cdfd4-80bc-4bc9-a487-07ed20e9ea00.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\dd945a46-50af-4dfb-bc63-8d538c96c9ae.webp",
+      "PackagePath": "staticwebassets\\images\\dd945a46-50af-4dfb-bc63-8d538c96c9ae.webp"
     },
     {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\dell.png",
