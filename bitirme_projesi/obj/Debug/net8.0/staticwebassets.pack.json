@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\1cdfcdc7-c1fa-4c0f-83ea-3f7642965896.jpg",
+      "PackagePath": "staticwebassets\\images\\1cdfcdc7-c1fa-4c0f-83ea-3f7642965896.jpg"
+    },
+    {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\2a938a32-3484-40e6-8ddd-5371aa0aa0ad.png",
       "PackagePath": "staticwebassets\\images\\2a938a32-3484-40e6-8ddd-5371aa0aa0ad.png"
     },
@@ -23,6 +27,110 @@
     {
       "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\7f2cdc91-f14a-4188-8508-f89cfbf60cd2.png",
       "PackagePath": "staticwebassets\\images\\7f2cdc91-f14a-4188-8508-f89cfbf60cd2.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\8c6a42c5-029b-485c-b53a-febba66cf996.jpg",
+      "PackagePath": "staticwebassets\\images\\8c6a42c5-029b-485c-b53a-febba66cf996.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\aspor.png",
+      "PackagePath": "staticwebassets\\images\\aspor.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\bot.png",
+      "PackagePath": "staticwebassets\\images\\bot.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\canta.png",
+      "PackagePath": "staticwebassets\\images\\canta.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\ckcanta.png",
+      "PackagePath": "staticwebassets\\images\\ckcanta.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\d47cdfd4-80bc-4bc9-a487-07ed20e9ea00.jpg",
+      "PackagePath": "staticwebassets\\images\\d47cdfd4-80bc-4bc9-a487-07ed20e9ea00.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\dell.png",
+      "PackagePath": "staticwebassets\\images\\dell.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\e1673c10-3dda-4fd6-9e54-ed3bc99b8b26.jpeg",
+      "PackagePath": "staticwebassets\\images\\e1673c10-3dda-4fd6-9e54-ed3bc99b8b26.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\fondoten.png",
+      "PackagePath": "staticwebassets\\images\\fondoten.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\gorge.png",
+      "PackagePath": "staticwebassets\\images\\gorge.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\kbot.png",
+      "PackagePath": "staticwebassets\\images\\kbot.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\kot.png",
+      "PackagePath": "staticwebassets\\images\\kot.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\kparfum.png",
+      "PackagePath": "staticwebassets\\images\\kparfum.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\kulaklık2.png",
+      "PackagePath": "staticwebassets\\images\\kulaklık2.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\laptop.png",
+      "PackagePath": "staticwebassets\\images\\laptop.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\laptop2.png",
+      "PackagePath": "staticwebassets\\images\\laptop2.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\lcantasi.png",
+      "PackagePath": "staticwebassets\\images\\lcantasi.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\nikespor.png",
+      "PackagePath": "staticwebassets\\images\\nikespor.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\nutuk.png",
+      "PackagePath": "staticwebassets\\images\\nutuk.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\okulaklık.png",
+      "PackagePath": "staticwebassets\\images\\okulaklık.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\omuzcantasi.png",
+      "PackagePath": "staticwebassets\\images\\omuzcantasi.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\parfum.png",
+      "PackagePath": "staticwebassets\\images\\parfum.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\ruj.png",
+      "PackagePath": "staticwebassets\\images\\ruj.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\simyacı.png",
+      "PackagePath": "staticwebassets\\images\\simyacı.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\sucveceza.png",
+      "PackagePath": "staticwebassets\\images\\sucveceza.png"
+    },
+    {
+      "Id": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\tisort.png",
+      "PackagePath": "staticwebassets\\images\\tisort.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.bitirme_projesi.Microsoft.AspNetCore.StaticWebAssets.props",

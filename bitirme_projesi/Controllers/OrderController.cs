@@ -53,20 +53,22 @@ namespace bitirme_projesi.Controllers
             var orders = _context.Orders
                 .Include(o => o.Product)
                 .Include(o => o.User)
-                .Select(o => new
-                {
+                .Select(o => new {
                     o.Id,
-                    UserName = o.User.Name,
-                    ProductName = o.Product.Name,
+                    UserName = o.User != null ? o.User.Name : "Bilinmiyor",
+                    UserEmail = o.User != null ? o.User.Email : "—",
+                    ProductName = o.Product != null ? o.Product.Name : "Silinmiş Ürün",
+                    ProductPrice = o.Product != null ? o.Product.Price : 0,
                     o.Quantity,
                     o.TotalPrice,
-                    o.OrderDate,
-                    o.Status
+                    o.Status,
+                    o.OrderDate
                 })
                 .ToList();
 
             return Ok(orders);
         }
+
 
         // 🔹 3️⃣ Sipariş durumu güncelle (PUT)
         [HttpPut("{id}")]
@@ -85,5 +87,20 @@ namespace bitirme_projesi.Controllers
 
             return Ok(new { message = "Sipariş durumu güncellendi.", order });
         }
+        // 🔹 4️⃣ Siparişi sil
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOrder(int id)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == id);
+
+            if (order == null)
+                return NotFound(new { message = "Silinecek sipariş bulunamadı." });
+
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
+
+            return Ok(new { message = "Sipariş başarıyla silindi." });
+        }
+
     }
 }

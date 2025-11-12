@@ -133,5 +133,46 @@ namespace bitirme_projesi.Controllers
 
             return Ok(new { message = "Ürün başarıyla silindi." });
         }
+        [HttpPost("add-with-image")]
+        public async Task<IActionResult> AddProductWithImage([FromForm] ProductCreateDto model)
+        {
+            if (model.ImageFile == null || model.ImageFile.Length == 0)
+                return BadRequest(new { message = "Lütfen bir resim dosyası seçin." });
+
+            // 🔹 Yükleme dizini
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
+
+            // 🔹 Dosya adı
+            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            // 🔹 Dosyayı kaydet
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.ImageFile.CopyToAsync(stream);
+            }
+
+            // 🔹 DB’ye kayıt
+            var product = new Product
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Price = model.Price,
+                Stock = model.Stock,
+                CategoryId = model.CategoryId,
+                ImageUrl = $"/images/{uniqueFileName}", // ✅ Buraya dikkat
+                Status = model.Stock > 0 ? "Stokta var" : "Tükendi"
+            };
+
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Ürün başarıyla eklendi", product });
+        }
+       
+
+
     }
 }

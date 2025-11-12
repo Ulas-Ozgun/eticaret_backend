@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using bitirme_projesi.models;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace bitirme_projesi.models
+namespace bitirme_projesi.Models
 {
     public class UrunNumara
     {
@@ -14,5 +15,4 @@ namespace bitirme_projesi.models
         public int NumaraId { get; set; }
         public Numara Numara { get; set; }
     }
-
 }

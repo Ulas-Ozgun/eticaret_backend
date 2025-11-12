@@ -1,0 +1,213 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\urunnumara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\models\\urunnumara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\urunbeden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\models\\urunbeden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\numara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\models\\numara.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\beden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\models\\beden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\bitirme_projesi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\bitirme_projesi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\productcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\models\\productcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|c:\\users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E186752-2931-45BA-AD76-A8FC5FE5A8C3}|bitirme_projesi\\bitirme_projesi.csproj|solutionrelative:bitirme_projesi\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UrunNumara.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\UrunNumara.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\models\\UrunNumara.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\UrunNumara.cs",
+              "RelativeToolTip": "bitirme_projesi\\models\\UrunNumara.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T23:01:27.368Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Numara.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\Numara.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\models\\Numara.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\Numara.cs",
+              "RelativeToolTip": "bitirme_projesi\\models\\Numara.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T22:59:56.48Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Beden.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\Beden.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\models\\Beden.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\Beden.cs",
+              "RelativeToolTip": "bitirme_projesi\\models\\Beden.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T22:59:36.722Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Controllers\\CartController.cs",
+              "RelativeToolTip": "bitirme_projesi\\Controllers\\CartController.cs",
+              "ViewState": "AQIAADYAAAAAAAAAAAAowFIAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T22:57:29.778Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\data\\AppDbContext.cs",
+              "RelativeToolTip": "bitirme_projesi\\data\\AppDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T22:48:25.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\Product.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\models\\Product.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\Product.cs",
+              "RelativeToolTip": "bitirme_projesi\\models\\Product.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T22:47:45.706Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UrunBeden.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\UrunBeden.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\models\\UrunBeden.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\UrunBeden.cs",
+              "RelativeToolTip": "bitirme_projesi\\models\\UrunBeden.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T22:46:26.155Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "bitirme_projesi.csproj",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\bitirme_projesi.csproj",
+              "RelativeDocumentMoniker": "bitirme_projesi\\bitirme_projesi.csproj",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\bitirme_projesi.csproj",
+              "RelativeToolTip": "bitirme_projesi\\bitirme_projesi.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-10T21:48:16.426Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Program.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\Program.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Program.cs",
+              "RelativeToolTip": "bitirme_projesi\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T21:41:08.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ProductCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\ProductCreateDto.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\models\\ProductCreateDto.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\models\\ProductCreateDto.cs",
+              "RelativeToolTip": "bitirme_projesi\\models\\ProductCreateDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T21:21:32.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "bitirme_projesi\\Controllers\\ProductController.cs",
+              "ViewState": "AQIAAHUAAAAAAAAAAAAmwK0AAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T21:18:59.578Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "bitirme_projesi\\Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "bitirme_projesi\\Controllers\\OrderController.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAowEYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T21:07:00.234Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
