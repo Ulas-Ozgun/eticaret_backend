@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hljHQL6IrqsOYRMBHrWqs+m/jQ2EaS/gN1xAQSRI70s=",
+  "Hash": "7TWthPkXKx2iakd5Xa1WXYxGt27tqUlXCMGVu5cgWOk=",
   "Source": "bitirme_projesi",
   "BasePath": "_content/bitirme_projesi",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\04e42b48-a8cc-4aef-9960-1d7d245769a2.png"
+    },
+    {
+      "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\0597acbf-9d80-4422-9e24-51dec007be48.jpeg",
+      "SourceId": "bitirme_projesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\",
+      "BasePath": "_content/bitirme_projesi",
+      "RelativePath": "images/0597acbf-9d80-4422-9e24-51dec007be48.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\0597acbf-9d80-4422-9e24-51dec007be48.jpeg"
     },
     {
       "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\06862077-e6a5-49ca-bf3d-af1558c7e9f1.webp",
@@ -72,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\07e6c214-fb15-46ec-9378-c8aa5715b6eb.webp"
+    },
+    {
+      "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\15955cc5-786a-426a-99e7-f1db63dd9cd4.jpg",
+      "SourceId": "bitirme_projesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\",
+      "BasePath": "_content/bitirme_projesi",
+      "RelativePath": "images/15955cc5-786a-426a-99e7-f1db63dd9cd4.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\15955cc5-786a-426a-99e7-f1db63dd9cd4.jpg"
     },
     {
       "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\16fff5d4-35aa-4632-a832-c094ddc7d73e.png",
@@ -167,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\3fae8b36-95b1-4957-8f0c-e5cbf990ecc6.webp"
+    },
+    {
+      "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\43281659-3e3b-4b59-be45-a3af491a3c77.jpg",
+      "SourceId": "bitirme_projesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\",
+      "BasePath": "_content/bitirme_projesi",
+      "RelativePath": "images/43281659-3e3b-4b59-be45-a3af491a3c77.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\43281659-3e3b-4b59-be45-a3af491a3c77.jpg"
     },
     {
       "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\4816ca54-950c-46e2-a86a-249d7d21d735.png",
@@ -281,6 +338,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\5bca444e-8c61-4280-ad3f-2c70666cddd9.png"
+    },
+    {
+      "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\75c5a3e8-850a-44b4-ab70-5260e2b4dad0.jpg",
+      "SourceId": "bitirme_projesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\",
+      "BasePath": "_content/bitirme_projesi",
+      "RelativePath": "images/75c5a3e8-850a-44b4-ab70-5260e2b4dad0.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\75c5a3e8-850a-44b4-ab70-5260e2b4dad0.jpg"
     },
     {
       "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\7cd74892-e745-4613-b358-d0cc59972b01.webp",
@@ -549,6 +625,25 @@
       "OriginalItemSpec": "wwwroot\\images\\dell.png"
     },
     {
+      "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\e16173de-5375-487b-898f-2a79f2894f47.png",
+      "SourceId": "bitirme_projesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\",
+      "BasePath": "_content/bitirme_projesi",
+      "RelativePath": "images/e16173de-5375-487b-898f-2a79f2894f47.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\e16173de-5375-487b-898f-2a79f2894f47.png"
+    },
+    {
       "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\e1673c10-3dda-4fd6-9e54-ed3bc99b8b26.jpeg",
       "SourceId": "bitirme_projesi",
       "SourceType": "Discovered",
@@ -566,6 +661,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\e1673c10-3dda-4fd6-9e54-ed3bc99b8b26.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\e852d9a3-45cb-435c-b247-96b66f6aa7b1.jpg",
+      "SourceId": "bitirme_projesi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\",
+      "BasePath": "_content/bitirme_projesi",
+      "RelativePath": "images/e852d9a3-45cb-435c-b247-96b66f6aa7b1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\e852d9a3-45cb-435c-b247-96b66f6aa7b1.jpg"
     },
     {
       "Identity": "C:\\Users\\ulaso\\source\\repos\\bitirme_projesi\\bitirme_projesi\\wwwroot\\images\\fondoten.png",

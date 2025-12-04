@@ -24,6 +24,7 @@ namespace bitirme_projesi.Data
         public DbSet<UrunNumara> urun_numara { get; set; }
         public DbSet<RecentView> RecentViews { get; set; }
 
+        public DbSet<SubCategory> SubCategories { get; set; }
 
 
 

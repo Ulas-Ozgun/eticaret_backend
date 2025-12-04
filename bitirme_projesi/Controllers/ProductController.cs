@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bitirme_projesi.Data;
-using bitirme_projesi.Models; // ✅ Bunu ekle
+using bitirme_projesi.Models;
 using System.Linq;
 using System.IO;
-
 
 namespace bitirme_projesi.Controllers
 {
@@ -25,7 +24,11 @@ namespace bitirme_projesi.Controllers
         [HttpGet]
         public IActionResult GetAllProducts()
         {
-            var products = _context.Products.Include(p => p.Category).ToList();
+            var products = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.SubCategory)
+                .ToList();
+
             return Ok(products);
         }
 
@@ -35,6 +38,7 @@ namespace bitirme_projesi.Controllers
         {
             var product = _context.Products
                 .Include(p => p.Category)
+                .Include(p => p.SubCategory)
                 .FirstOrDefault(p => p.Id == id);
 
             if (product == null)
@@ -57,6 +61,7 @@ namespace bitirme_projesi.Controllers
                 Price = model.Price,
                 Stock = model.Stock,
                 CategoryId = model.CategoryId,
+                SubCategoryId = model.SubCategoryId,   // ⭐ EKLENDİ
                 Status = model.Stock > 0 ? "Stokta var" : "Tükendi"
             };
 
@@ -113,49 +118,54 @@ namespace bitirme_projesi.Controllers
         }
 
         // 🔹 4️⃣ Ürün güncelle (FormData ile)
-
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, [FromForm] ProductUpdateDto model)
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (product == null) return NotFound(new { message = "Ürün bulunamadı." });
 
-            // Alanlar geldiyse güncelle, gelmediyse eskisini koru
+            // Alanlar geldiyse güncelle
             if (model.Name != null) product.Name = model.Name;
             if (model.Description != null) product.Description = model.Description;
             if (model.Price.HasValue) product.Price = model.Price.Value;
             if (model.Stock.HasValue) product.Stock = model.Stock.Value;
             if (model.CategoryId.HasValue) product.CategoryId = model.CategoryId.Value;
 
+            product.SubCategoryId = model.SubCategoryId ?? product.SubCategoryId;  // ⭐ EKLENDİ
+
             product.Status = product.Stock > 0 ? "Stokta var" : "Tükendi";
 
             // Yeni resim geldiyse değiştir
             if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                var uploadsFolder = Path.Combine(_env.WebRootPath, "images");
                 if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
 
                 var uniqueFileName = Guid.NewGuid() + Path.GetExtension(model.ImageFile.FileName);
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
                 using var stream = new FileStream(filePath, FileMode.Create);
                 await model.ImageFile.CopyToAsync(stream);
 
                 product.ImageUrl = $"images/{uniqueFileName}";
             }
 
-            // İlişkileri güncelle (gönderildiyse)
+            // Beden güncelle
             if (model.BedenIds != null)
             {
                 var eskiBedenler = _context.urun_beden.Where(x => x.ProductId == id);
                 _context.urun_beden.RemoveRange(eskiBedenler);
+
                 foreach (var bedenId in model.BedenIds)
                     _context.urun_beden.Add(new UrunBeden { ProductId = id, BedenId = bedenId });
             }
 
+            // Numara güncelle
             if (model.NumaraIds != null)
             {
                 var eskiNumaralar = _context.urun_numara.Where(x => x.ProductId == id);
                 _context.urun_numara.RemoveRange(eskiNumaralar);
+
                 foreach (var numaraId in model.NumaraIds)
                     _context.urun_numara.Add(new UrunNumara { ProductId = id, NumaraId = numaraId });
             }
@@ -163,8 +173,6 @@ namespace bitirme_projesi.Controllers
             await _context.SaveChangesAsync();
             return Ok(new { message = "✏️ Ürün başarıyla güncellendi!", product });
         }
-
-
 
         // 🔹 5️⃣ Ürün sil
         [HttpDelete("{id}")]
@@ -178,6 +186,7 @@ namespace bitirme_projesi.Controllers
 
             var urunBedenler = _context.urun_beden.Where(x => x.ProductId == id);
             var urunNumaralar = _context.urun_numara.Where(x => x.ProductId == id);
+
             _context.urun_beden.RemoveRange(urunBedenler);
             _context.urun_numara.RemoveRange(urunNumaralar);
 
@@ -185,6 +194,8 @@ namespace bitirme_projesi.Controllers
 
             return Ok(new { message = "🗑️ Ürün başarıyla silindi!" });
         }
+
+        // 🔹 Slider görselleri
         [HttpGet("slider")]
         public IActionResult GetSliderImages()
         {
@@ -199,7 +210,5 @@ namespace bitirme_projesi.Controllers
 
             return Ok(files);
         }
-
-
     }
 }

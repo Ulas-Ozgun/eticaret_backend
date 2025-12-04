@@ -23,5 +23,7 @@ namespace bitirme_projesi.Models
         public List<int>? BedenIds { get; set; }
 
         public List<int>? NumaraIds { get; set; }
+        public int? SubCategoryId { get; set; }
+
     }
 }
