@@ -185,5 +185,21 @@ namespace bitirme_projesi.Controllers
 
             return Ok(new { message = "🗑️ Ürün başarıyla silindi!" });
         }
+        [HttpGet("slider")]
+        public IActionResult GetSliderImages()
+        {
+            var folder = Path.Combine(_env.WebRootPath, "slider-images");
+
+            if (!Directory.Exists(folder))
+                return Ok(new List<string>());
+
+            var files = Directory.GetFiles(folder)
+                .Select(f => "slider-images/" + Path.GetFileName(f))
+                .ToList();
+
+            return Ok(files);
+        }
+
+
     }
 }

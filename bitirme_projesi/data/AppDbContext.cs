@@ -3,6 +3,7 @@ using bitirme_projesi.Models;
 
 
 
+
 namespace bitirme_projesi.Data
 {
     public class AppDbContext : DbContext
@@ -21,15 +22,11 @@ namespace bitirme_projesi.Data
         public DbSet<UrunBeden> urun_beden { get; set; }
         public DbSet<Numara> numara { get; set; }
         public DbSet<UrunNumara> urun_numara { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        public DbSet<RecentView> RecentViews { get; set; }
 
-            modelBuilder.Entity<Beden>().ToTable("beden");
-            modelBuilder.Entity<UrunBeden>().ToTable("urun_beden");
-            modelBuilder.Entity<Numara>().ToTable("numara");
-            modelBuilder.Entity<UrunNumara>().ToTable("urun_numara");
-        }
+
+
+
 
     }
 }

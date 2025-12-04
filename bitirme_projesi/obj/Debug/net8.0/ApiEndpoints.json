@@ -529,6 +529,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "bitirme_projesi.Controllers.ProductController",
+    "Method": "GetSliderImages",
+    "RelativePath": "api/Product/slider",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "bitirme_projesi.Controllers.ProductSeederController",
     "Method": "GenerateProducts",
     "RelativePath": "api/ProductSeeder/generate/{count}",
@@ -538,6 +548,38 @@
     "Parameters": [
       {
         "Name": "count",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.RecentViewsController",
+    "Method": "AddView",
+    "RelativePath": "api/RecentViews",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "view",
+        "Type": "bitirme_projesi.Models.RecentView",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.RecentViewsController",
+    "Method": "GetRecent",
+    "RelativePath": "api/RecentViews/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
         "Type": "System.Int32",
         "IsRequired": true
       }
