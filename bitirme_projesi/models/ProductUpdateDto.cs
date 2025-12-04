@@ -10,6 +10,8 @@
         public IFormFile? ImageFile { get; set; }
         public List<int>? BedenIds { get; set; }
         public List<int>? NumaraIds { get; set; }
+        public int? SubCategoryId { get; set; }
+
     }
 
 }
