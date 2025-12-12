@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bitirme_projesi.Models
 {
@@ -21,5 +22,13 @@ namespace bitirme_projesi.Models
 
         public int Stock { get; set; }      // stok adedi
         public string? Status { get; set; } // "Stokta var" / "Tükendi"
+
+        // 🔹 Satıcı bilgisi (ürünü ekleyen kullanıcı)
+        [ForeignKey("Seller")]
+        public int? SellerId { get; set; }  // Nullable: Admin eklediyse null olabilir
+        public User? Seller { get; set; }
+
+        // 🔹 Onay durumu (Satıcı ürünleri için admin onayı gerekli)
+        public bool IsApproved { get; set; } = true;  // Admin eklediyse true, Satıcı eklediyse false (onay bekliyor)
     }
 }
