@@ -624,6 +624,42 @@
   },
   {
     "ContainingType": "bitirme_projesi.Controllers.ProductController",
+    "Method": "DeleteProductsByCategory",
+    "RelativePath": "api/Product/by-category/{categoryId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.ProductController",
+    "Method": "DeleteAllProducts",
+    "RelativePath": "api/Product/delete-all",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.ProductController",
+    "Method": "ImportProductsFromDataset",
+    "RelativePath": "api/Product/import-from-dataset",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.ProductController",
     "Method": "GetPendingProducts",
     "RelativePath": "api/Product/pending",
     "HttpMethod": "GET",
@@ -745,176 +781,23 @@
   },
   {
     "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "SeedFromDummyJson",
-    "RelativePath": "api/Seed/from-api",
+    "Method": "SeedFromFashionDataset",
+    "RelativePath": "api/Seed/from-fashion-dataset",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "multiply",
-        "Type": "System.Int32",
+        "Name": "datasetPath",
+        "Type": "System.String",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "SeedFromDummyJsonByCategory",
-    "RelativePath": "api/Seed/from-dummyjson",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+      },
       {
         "Name": "countPerCategory",
         "Type": "System.Int32",
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "SeedFromDummyJsonAllCategories",
-    "RelativePath": "api/Seed/from-dummyjson-all",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "countPerCategory",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "SeedFromDummyJsonDirect",
-    "RelativePath": "api/Seed/from-dummyjson-direct",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "count",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "SeedFromMultipleSources",
-    "RelativePath": "api/Seed/from-multiple-sources",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "countPerCategory",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "SeedFromUnsplash",
-    "RelativePath": "api/Seed/from-unsplash",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "countPerCategory",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "FullSeed",
-    "RelativePath": "api/Seed/full",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "countPerCategory",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "FullSeedDynamic",
-    "RelativePath": "api/Seed/full-dynamic",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "countPerCategory",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "SeedProducts",
-    "RelativePath": "api/Seed/products",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "count",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "DeleteSeedProducts",
-    "RelativePath": "api/Seed/products",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "DeleteAllProducts",
-    "RelativePath": "api/Seed/products/all",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "bitirme_projesi.Controllers.SeedController",
-    "Method": "GetStats",
-    "RelativePath": "api/Seed/stats",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

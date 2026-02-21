@@ -394,5 +394,195 @@ namespace bitirme_projesi.Controllers
 
             return Ok(files);
         }
+
+        // 🔹 Kategoriye göre tüm ürünleri sil (Toplu silme)
+        [HttpDelete("by-category/{categoryId}")]
+        public async Task<IActionResult> DeleteProductsByCategory(int categoryId)
+        {
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => p.CategoryId == categoryId)
+                    .ToListAsync();
+
+                if (!products.Any())
+                {
+                    return Ok(new { message = "Bu kategoride silinecek ürün bulunamadı.", deleted = 0 });
+                }
+
+                int count = products.Count;
+
+                // İlişkili beden ve numaraları sil
+                foreach (var product in products)
+                {
+                    var urunBedenler = _context.urun_beden.Where(x => x.ProductId == product.Id);
+                    var urunNumaralar = _context.urun_numara.Where(x => x.ProductId == product.Id);
+
+                    _context.urun_beden.RemoveRange(urunBedenler);
+                    _context.urun_numara.RemoveRange(urunNumaralar);
+                }
+
+                // Ürünleri sil
+                _context.Products.RemoveRange(products);
+                await _context.SaveChangesAsync();
+
+                return Ok(new 
+                { 
+                    message = $"✅ {count} ürün başarıyla silindi!",
+                    deleted = count,
+                    categoryId = categoryId
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Silme sırasında hata oluştu.", error = ex.Message });
+            }
+        }
+
+        // 🔹 Tüm ürünleri sil (Dikkatli kullan!)
+        [HttpDelete("delete-all")]
+        public async Task<IActionResult> DeleteAllProducts()
+        {
+            try
+            {
+                var allProducts = await _context.Products.ToListAsync();
+                int count = allProducts.Count;
+
+                if (count == 0)
+                {
+                    return Ok(new { message = "Silinecek ürün bulunamadı.", deleted = 0 });
+                }
+
+                // Tüm ilişkili verileri sil
+                _context.urun_beden.RemoveRange(_context.urun_beden);
+                _context.urun_numara.RemoveRange(_context.urun_numara);
+                _context.CartItems.RemoveRange(_context.CartItems);
+                _context.Favorites.RemoveRange(_context.Favorites);
+                _context.Orders.RemoveRange(_context.Orders);
+                _context.Reviews.RemoveRange(_context.Reviews);
+                _context.RecentViews.RemoveRange(_context.RecentViews);
+
+                // Ürünleri sil
+                _context.Products.RemoveRange(allProducts);
+                await _context.SaveChangesAsync();
+
+                return Ok(new 
+                { 
+                    message = $"✅ Tüm ürünler silindi! ({count} ürün)",
+                    deleted = count
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Silme sırasında hata oluştu.", error = ex.Message });
+            }
+        }
+
+        // 🔹 Import Products from JSON (Dataset import)
+        [HttpPost("import-from-dataset")]
+        public async Task<IActionResult> ImportProductsFromDataset()
+        {
+            try
+            {
+                var jsonPath = Path.Combine(_env.ContentRootPath, "products_import.json");
+                
+                if (!System.IO.File.Exists(jsonPath))
+                {
+                    return NotFound(new { message = "Import dosyası bulunamadı. products_import.json dosyasını proje kök dizinine koyun." });
+                }
+
+                var jsonContent = await System.IO.File.ReadAllTextAsync(jsonPath);
+                
+                // JSON deserialization options - daha esnek
+                var options = new System.Text.Json.JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    AllowTrailingCommas = true,
+                    ReadCommentHandling = System.Text.Json.JsonCommentHandling.Skip
+                };
+                
+                List<ProductImportDto> productsDto;
+                try
+                {
+                    productsDto = System.Text.Json.JsonSerializer.Deserialize<List<ProductImportDto>>(jsonContent, options);
+                }
+                catch (System.Text.Json.JsonException ex)
+                {
+                    return BadRequest(new { message = "JSON parse hatası.", error = ex.Message, line = ex.LineNumber, position = ex.BytePositionInLine });
+                }
+
+                if (productsDto == null || !productsDto.Any())
+                {
+                    return BadRequest(new { message = "Import dosyası boş veya geçersiz." });
+                }
+
+                int addedCount = 0;
+                int skippedCount = 0;
+
+                foreach (var dto in productsDto)
+                {
+                    // Name ve Description'ı temizle (null, nan, boş kontrolü)
+                    var cleanName = string.IsNullOrWhiteSpace(dto.Name) || dto.Name.ToLower() == "nan" 
+                        ? $"Ürün {addedCount + 1}" 
+                        : dto.Name.Trim();
+                    
+                    var cleanDescription = string.IsNullOrWhiteSpace(dto.Description) || dto.Description.ToLower() == "nan"
+                        ? cleanName
+                        : dto.Description.Trim();
+                    
+                    // Aynı isimde ürün var mı kontrol et (temizlenmiş name ile)
+                    var existingProduct = await _context.Products
+                        .FirstOrDefaultAsync(p => p.Name == cleanName && p.CategoryId == dto.CategoryId);
+
+                    if (existingProduct != null)
+                    {
+                        skippedCount++;
+                        continue; // Zaten varsa atla
+                    }
+
+                    var product = new Product
+                    {
+                        Name = cleanName,
+                        Description = cleanDescription,
+                        Price = dto.Price ?? 0,
+                        Stock = dto.Stock > 0 ? dto.Stock : 100, // Varsayılan stok
+                        CategoryId = dto.CategoryId > 0 ? dto.CategoryId : 1, // Varsayılan kategori
+                        ImageUrl = !string.IsNullOrWhiteSpace(dto.ImagePath) ? dto.ImagePath : "images/default.jpg",
+                        Status = dto.Stock > 0 ? "Stokta var" : "Tükendi",
+                        SellerId = null, // Admin tarafından ekleniyor
+                        IsApproved = true // Admin tarafından eklenen ürünler otomatik onaylı
+                    };
+
+                    _context.Products.Add(product);
+                    addedCount++;
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new 
+                { 
+                    message = $"✅ Import tamamlandı!",
+                    added = addedCount,
+                    skipped = skippedCount,
+                    total = productsDto.Count
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Import sırasında hata oluştu.", error = ex.Message });
+            }
+        }
+    }
+
+    // 🔹 Import DTO
+    public class ProductImportDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal? Price { get; set; }
+        public int Stock { get; set; }
+        public int CategoryId { get; set; }
+        public string ImagePath { get; set; }
+        public string Filename { get; set; }
     }
 }
