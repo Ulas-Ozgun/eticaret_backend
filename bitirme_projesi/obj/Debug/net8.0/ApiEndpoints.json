@@ -553,6 +553,27 @@
   },
   {
     "ContainingType": "bitirme_projesi.Controllers.ProductController",
+    "Method": "GetRelatedProducts",
+    "RelativePath": "api/Product/{id}/related",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.ProductController",
     "Method": "AddProductWithImage",
     "RelativePath": "api/Product/add-with-image",
     "HttpMethod": "POST",
@@ -650,12 +671,79 @@
   },
   {
     "ContainingType": "bitirme_projesi.Controllers.ProductController",
+    "Method": "GetDiscountedProducts",
+    "RelativePath": "api/Product/discounted",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.ProductController",
     "Method": "ImportProductsFromDataset",
     "RelativePath": "api/Product/import-from-dataset",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "bitirme_projesi.Controllers.ProductController",
+    "Method": "GetPaginatedProducts",
+    "RelativePath": "api/Product/paginated",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "block",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "includePending",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "sellerId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

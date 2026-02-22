@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bitirme_projesi.Data;
 using bitirme_projesi.Models;
@@ -40,6 +40,170 @@ namespace bitirme_projesi.Controllers
 
             var products = query.ToList();
             return Ok(products);
+        }
+
+        // 🔹 Hybrid Pagination Endpoint
+        [HttpGet("paginated")]
+        public IActionResult GetPaginatedProducts(
+            [FromQuery] int block = 1,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            [FromQuery] int? categoryId = null,
+            [FromQuery] string? search = null,
+            [FromQuery] bool includePending = false,
+            [FromQuery] int? sellerId = null,
+            [FromQuery] string? sortBy = null)
+        {
+            const int blockSize = 60;
+
+            if (block < 1) block = 1;
+            if (page < 1) page = 1;
+            if (pageSize < 1) pageSize = 20;
+
+            int maxPagesInBlock = blockSize / pageSize;
+            if (page > maxPagesInBlock) page = maxPagesInBlock;
+
+            var query = _context.Products
+                .AsNoTracking()
+                .Include(p => p.Category)
+                .Include(p => p.SubCategory)
+                .Include(p => p.Seller)
+                .AsQueryable();
+
+            if (sellerId.HasValue)
+                query = query.Where(p => p.SellerId == sellerId.Value);
+            else if (!includePending)
+                query = query.Where(p => p.IsApproved);
+
+            if (categoryId.HasValue && categoryId.Value > 0)
+                query = query.Where(p => p.CategoryId == categoryId.Value);
+
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(p => p.Name.ToLower().Contains(search.ToLower()));
+
+            switch (sortBy)
+            {
+                case "price_asc":
+                    query = query.OrderBy(p => p.Price);
+                    break;
+                case "price_desc":
+                    query = query.OrderByDescending(p => p.Price);
+                    break;
+                case "most_reviewed":
+                    query = query.OrderByDescending(p => _context.Reviews.Count(r => r.ProductId == p.Id));
+                    break;
+                case "top_rated":
+                    query = query.OrderByDescending(p =>
+                        _context.Reviews.Where(r => r.ProductId == p.Id).Any()
+                            ? _context.Reviews.Where(r => r.ProductId == p.Id).Average(r => r.Rating)
+                            : 0);
+                    break;
+                case "newest":
+                default:
+                    query = query.OrderByDescending(p => p.Id);
+                    break;
+            }
+
+            int totalCount = query.Count();
+            int totalBlocks = (int)Math.Ceiling((double)totalCount / blockSize);
+
+            int skip = (block - 1) * blockSize + (page - 1) * pageSize;
+            int blockStartIndex = (block - 1) * blockSize;
+            int itemsRemainingInBlock = Math.Max(0, Math.Min(blockSize, totalCount - blockStartIndex) - (page - 1) * pageSize);
+            int take = Math.Min(pageSize, itemsRemainingInBlock);
+
+            var items = query.Skip(skip).Take(take).ToList();
+
+            int loadedInBlockSoFar = page * pageSize;
+            int totalItemsInCurrentBlock = Math.Min(blockSize, totalCount - blockStartIndex);
+
+            var response = new PaginatedProductResponse
+            {
+                Items = items.Select(p => (object)new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Description,
+                    p.Price,
+                    p.OldPrice,
+                    p.ImageUrl,
+                    p.CategoryId,
+                    CategoryName = p.Category != null ? p.Category.Name : "",
+                    p.SubCategoryId,
+                    SubCategoryName = p.SubCategory != null ? p.SubCategory.Name : "",
+                    p.Stock,
+                    p.Status,
+                    p.SellerId,
+                    SellerName = p.Seller != null ? p.Seller.Name : "",
+                    p.IsApproved
+                }).ToList(),
+                TotalCount = totalCount,
+                TotalBlocks = totalBlocks,
+                CurrentBlock = block,
+                CurrentPage = page,
+                PageSize = pageSize,
+                BlockSize = blockSize,
+                HasMoreInBlock = loadedInBlockSoFar < totalItemsInCurrentBlock,
+                HasNextBlock = block < totalBlocks
+            };
+
+            return Ok(response);
+        }
+
+        // 🔹 Kampanyalı (indirimli) ürünler
+        [HttpGet("discounted")]
+        public IActionResult GetDiscountedProducts([FromQuery] int limit = 20)
+        {
+            var products = _context.Products
+                .AsNoTracking()
+                .Include(p => p.Category)
+                .Where(p => p.IsApproved && p.OldPrice != null && p.OldPrice > p.Price)
+                .OrderByDescending(p => p.Id)
+                .Take(limit)
+                .Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Price,
+                    p.OldPrice,
+                    DiscountPercent = (int)Math.Round((double)(p.OldPrice.Value - p.Price) / (double)p.OldPrice.Value * 100),
+                    p.ImageUrl,
+                    p.Stock,
+                    p.Status,
+                    CategoryName = p.Category != null ? p.Category.Name : ""
+                })
+                .ToList();
+
+            return Ok(products);
+        }
+
+        // 🔹 Aynı kategorideki önerilen ürünler
+        [HttpGet("{id}/related")]
+        public IActionResult GetRelatedProducts(int id, [FromQuery] int limit = 10)
+        {
+            var product = _context.Products.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            if (product == null)
+                return NotFound();
+
+            var related = _context.Products
+                .AsNoTracking()
+                .Include(p => p.Category)
+                .Where(p => p.CategoryId == product.CategoryId && p.Id != id && p.IsApproved)
+                .OrderByDescending(p => p.Id)
+                .Take(limit)
+                .Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Price,
+                    p.ImageUrl,
+                    p.Stock,
+                    p.Status,
+                    CategoryName = p.Category != null ? p.Category.Name : ""
+                })
+                .ToList();
+
+            return Ok(related);
         }
 
         // 🔹 2️⃣ Tek ürün getir
@@ -198,7 +362,17 @@ namespace bitirme_projesi.Controllers
             // Alanlar geldiyse güncelle
             if (model.Name != null) product.Name = model.Name;
             if (model.Description != null) product.Description = model.Description;
-            if (model.Price.HasValue) product.Price = model.Price.Value;
+
+            if (model.Price.HasValue && model.Price.Value != product.Price)
+            {
+                if (model.Price.Value < product.Price)
+                    product.OldPrice = product.Price;
+                else
+                    product.OldPrice = null;
+
+                product.Price = model.Price.Value;
+            }
+
             if (model.Stock.HasValue) product.Stock = model.Stock.Value;
             if (model.CategoryId.HasValue) product.CategoryId = model.CategoryId.Value;
 

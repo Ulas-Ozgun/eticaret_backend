@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace bitirme_projesi.Models
@@ -11,6 +11,7 @@ namespace bitirme_projesi.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public decimal? OldPrice { get; set; }
         public string ImageUrl { get; set; }
 
         public int CategoryId { get; set; }
