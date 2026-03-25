@@ -60,7 +60,8 @@ namespace bitirme_projesi.Controllers
             if (page < 1) page = 1;
             if (pageSize < 1) pageSize = 20;
 
-            int maxPagesInBlock = blockSize / pageSize;
+            int effectiveBlockSize = Math.Max(blockSize, pageSize);
+            int maxPagesInBlock = Math.Max(1, effectiveBlockSize / pageSize);
             if (page > maxPagesInBlock) page = maxPagesInBlock;
 
             var query = _context.Products
@@ -105,17 +106,17 @@ namespace bitirme_projesi.Controllers
             }
 
             int totalCount = query.Count();
-            int totalBlocks = (int)Math.Ceiling((double)totalCount / blockSize);
+            int totalBlocks = Math.Max(1, (int)Math.Ceiling((double)totalCount / effectiveBlockSize));
 
-            int skip = (block - 1) * blockSize + (page - 1) * pageSize;
-            int blockStartIndex = (block - 1) * blockSize;
-            int itemsRemainingInBlock = Math.Max(0, Math.Min(blockSize, totalCount - blockStartIndex) - (page - 1) * pageSize);
-            int take = Math.Min(pageSize, itemsRemainingInBlock);
+            int skip = Math.Max(0, (block - 1) * effectiveBlockSize + (page - 1) * pageSize);
+            int blockStartIndex = (block - 1) * effectiveBlockSize;
+            int itemsRemainingInBlock = Math.Max(0, Math.Min(effectiveBlockSize, totalCount - Math.Max(0, blockStartIndex)) - (page - 1) * pageSize);
+            int take = Math.Max(0, Math.Min(pageSize, itemsRemainingInBlock));
 
             var items = query.Skip(skip).Take(take).ToList();
 
             int loadedInBlockSoFar = page * pageSize;
-            int totalItemsInCurrentBlock = Math.Min(blockSize, totalCount - blockStartIndex);
+            int totalItemsInCurrentBlock = Math.Min(effectiveBlockSize, totalCount - Math.Max(0, blockStartIndex));
 
             var response = new PaginatedProductResponse
             {
@@ -142,7 +143,7 @@ namespace bitirme_projesi.Controllers
                 CurrentBlock = block,
                 CurrentPage = page,
                 PageSize = pageSize,
-                BlockSize = blockSize,
+                BlockSize = effectiveBlockSize,
                 HasMoreInBlock = loadedInBlockSoFar < totalItemsInCurrentBlock,
                 HasNextBlock = block < totalBlocks
             };
