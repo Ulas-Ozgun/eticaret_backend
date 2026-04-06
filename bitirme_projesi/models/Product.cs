@@ -24,6 +24,10 @@ namespace bitirme_projesi.Models
         public int Stock { get; set; }      // stok adedi
         public string? Status { get; set; } // "Stokta var" / "Tükendi"
 
+        // AI tarafinda yorumlardan uretilen ozet metni
+        public string? AiSummary { get; set; }
+        public DateTime? AiSummaryUpdatedAt { get; set; }
+
         // 🔹 Satıcı bilgisi (ürünü ekleyen kullanıcı)
         [ForeignKey("Seller")]
         public int? SellerId { get; set; }  // Nullable: Admin eklediyse null olabilir

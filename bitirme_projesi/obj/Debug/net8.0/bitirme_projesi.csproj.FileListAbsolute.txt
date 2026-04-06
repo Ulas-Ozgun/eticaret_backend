@@ -135,3 +135,14 @@ C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\obj\Debug\net8.0\ref
 C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\obj\Debug\net8.0\bitirme_projesi.sourcelink.json
 C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\bitirme_projesi.staticwebassets.runtime.json
 C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\products_import.json
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Json.More.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\JsonPointer.Net.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\JsonSchema.Net.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\JsonSchema.Net.Generation.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Microsoft.Extensions.Configuration.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Microsoft.Extensions.Http.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\Users\ulaso\source\repos\bitirme_projesi\bitirme_projesi\bin\Debug\net8.0\Mscc.GenerativeAI.dll

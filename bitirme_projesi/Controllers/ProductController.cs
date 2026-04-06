@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bitirme_projesi.Data;
 using bitirme_projesi.Models;
+using bitirme_projesi.Services;
+using System.Collections.Concurrent;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.IO;
 
@@ -13,11 +17,25 @@ namespace bitirme_projesi.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
+        private readonly GeminiService _geminiService;
+        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductController(AppDbContext context, IWebHostEnvironment env)
+        // Aynı product için aynı anda Gemini çağrılmasını engeller.
+        private static readonly ConcurrentDictionary<int, SemaphoreSlim> AiLocks = new();
+
+        public ProductController(
+            AppDbContext context,
+            IWebHostEnvironment env,
+            GeminiService geminiService,
+            IServiceScopeFactory scopeFactory,
+            ILogger<ProductController> logger)
         {
             _context = context;
             _env = env;
+            _geminiService = geminiService;
+            _scopeFactory = scopeFactory;
+            _logger = logger;
         }
 
         // 🔹 1️⃣ Tüm ürünleri getir (optimize edilmiş) - Sadece onaylanmış ürünler
@@ -52,7 +70,8 @@ namespace bitirme_projesi.Controllers
             [FromQuery] string? search = null,
             [FromQuery] bool includePending = false,
             [FromQuery] int? sellerId = null,
-            [FromQuery] string? sortBy = null)
+            [FromQuery] string? sortBy = null,
+            [FromQuery] bool excludeDiscounted = false)
         {
             const int blockSize = 60;
 
@@ -81,6 +100,10 @@ namespace bitirme_projesi.Controllers
 
             if (!string.IsNullOrWhiteSpace(search))
                 query = query.Where(p => p.Name.ToLower().Contains(search.ToLower()));
+
+            // Ana vitrin: indirimliler yalnızca /discounted slider'da; grid'de tekrar gösterme
+            if (excludeDiscounted)
+                query = query.Where(p => p.OldPrice == null || p.OldPrice <= p.Price);
 
             switch (sortBy)
             {
@@ -178,20 +201,31 @@ namespace bitirme_projesi.Controllers
             return Ok(products);
         }
 
-        // 🔹 Aynı kategorideki önerilen ürünler
+        // 🔹 Aynı kategorideki önerilen ürünler (rastgele; her istekte farklı set)
         [HttpGet("{id}/related")]
-        public IActionResult GetRelatedProducts(int id, [FromQuery] int limit = 10)
+        public async Task<IActionResult> GetRelatedProducts(int id, [FromQuery] int limit = 10)
         {
-            var product = _context.Products.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
                 return NotFound();
 
-            var related = _context.Products
+            var candidateIds = await _context.Products
                 .AsNoTracking()
-                .Include(p => p.Category)
                 .Where(p => p.CategoryId == product.CategoryId && p.Id != id && p.IsApproved)
-                .OrderByDescending(p => p.Id)
-                .Take(limit)
+                .Select(p => p.Id)
+                .ToListAsync();
+
+            if (candidateIds.Count == 0)
+                return Ok(Array.Empty<object>());
+
+            var idArray = candidateIds.ToArray();
+            Random.Shared.Shuffle(idArray);
+            var take = Math.Min(limit, idArray.Length);
+            var picked = idArray.AsSpan(0, take).ToArray();
+
+            var rows = await _context.Products
+                .AsNoTracking()
+                .Where(p => picked.Contains(p.Id))
                 .Select(p => new
                 {
                     p.Id,
@@ -202,14 +236,17 @@ namespace bitirme_projesi.Controllers
                     p.Status,
                     CategoryName = p.Category != null ? p.Category.Name : ""
                 })
-                .ToList();
+                .ToListAsync();
 
-            return Ok(related);
+            var order = picked.Select((pid, i) => (pid, i)).ToDictionary(x => x.pid, x => x.i);
+            var ordered = rows.OrderBy(r => order[r.Id]).ToList();
+
+            return Ok(ordered);
         }
 
         // 🔹 2️⃣ Tek ürün getir
         [HttpGet("{id}")]
-        public IActionResult GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
             var product = _context.Products
                 .Include(p => p.Category)
@@ -219,6 +256,108 @@ namespace bitirme_projesi.Controllers
 
             if (product == null)
                 return NotFound(new { message = "Ürün bulunamadı." });
+
+            // 🔹 AI özet cache kontrolü
+            // - AiSummary null ise veya AiSummaryUpdatedAt 7 günü geçtiyse yorumları çekip Gemini ile özet üret.
+            var nowUtc = DateTime.UtcNow;
+            var needsAiRefresh =
+                string.IsNullOrWhiteSpace(product.AiSummary) ||
+                !product.AiSummaryUpdatedAt.HasValue ||
+                product.AiSummaryUpdatedAt.Value < nowUtc.AddDays(-7);
+
+            if (needsAiRefresh)
+            {
+                _logger.LogWarning("AI özet gerekiyordu. ProductId={ProductId} (AiSummary null/7gün+)", id);
+                Console.WriteLine($"[AI] needsAiRefresh started. ProductId={id}");
+
+                var topReviews = _context.Reviews
+                    .Where(r => r.ProductId == id)
+                    .OrderByDescending(r => r.CreatedAt)
+                    .Take(20)
+                    .Select(r => r.Comment)
+                    .ToList();
+
+                if (topReviews.Count > 0)
+                {
+                    // İstek yanıtını geciktirmemek için Gemini özet üretimini arka planda yap.
+                    var sem = AiLocks.GetOrAdd(id, _ => new SemaphoreSlim(1, 1));
+
+                    if (await sem.WaitAsync(0))
+                    {
+                        _ = Task.Run(async () =>
+                        {
+                            try
+                            {
+                                _logger.LogWarning("Gemini yorum özeti başladı. ProductId={ProductId}", id);
+                                Console.WriteLine($"[AI] Gemini started. ProductId={id}");
+
+                                using var scope = _scopeFactory.CreateScope();
+                                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                                var gemini = scope.ServiceProvider.GetRequiredService<GeminiService>();
+
+                                var p = await db.Products.FirstOrDefaultAsync(x => x.Id == id);
+                                if (p == null)
+                                    return;
+
+                                // Başka bir istek önce üretmiş olabilir; tekrar kontrol.
+                                var checkNow = DateTime.UtcNow;
+                                var stillNeeds =
+                                    string.IsNullOrWhiteSpace(p.AiSummary) ||
+                                    !p.AiSummaryUpdatedAt.HasValue ||
+                                    p.AiSummaryUpdatedAt.Value < checkNow.AddDays(-7);
+
+                                if (!stillNeeds)
+                                {
+                                    _logger.LogWarning("Gemini atlandı (cache doldu). ProductId={ProductId}", id);
+                                    Console.WriteLine($"[AI] Gemini skipped (cache). ProductId={id}");
+                                    return;
+                                }
+
+                                var comments = await db.Reviews
+                                    .Where(r => r.ProductId == id)
+                                    .OrderByDescending(r => r.CreatedAt)
+                                    .Take(20)
+                                    .Select(r => r.Comment)
+                                    .ToListAsync();
+
+                                if (comments.Count == 0)
+                                {
+                                    _logger.LogWarning("Gemini atlandı (yorum yok). ProductId={ProductId}", id);
+                                    Console.WriteLine($"[AI] Gemini skipped (no reviews). ProductId={id}");
+                                    return;
+                                }
+
+                                var summary = await gemini.SummarizeReviews(comments);
+                                p.AiSummary = summary;
+                                p.AiSummaryUpdatedAt = checkNow;
+                                await db.SaveChangesAsync();
+
+                                _logger.LogWarning("Gemini yorum özeti bitti ve kaydedildi. ProductId={ProductId}", id);
+                                Console.WriteLine($"[AI] Gemini finished & saved. ProductId={id}");
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.LogError(ex, "Gemini yorum özeti üretimi başarısız. ProductId={ProductId}", id);
+                                Console.WriteLine($"[AI] Gemini failed. ProductId={id}. Error={ex.Message}");
+                            }
+                            finally
+                            {
+                                sem.Release();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Gemini özet üretimi kilit nedeniyle bekletildi/atlanıyor. ProductId={ProductId}", id);
+                        Console.WriteLine($"[AI] Gemini not started due to lock. ProductId={id}");
+                    }
+                }
+                else
+                {
+                    _logger.LogWarning("AI özet gerekli ama ilk 20 yorum yok/gelmedi. ProductId={ProductId}", id);
+                    Console.WriteLine($"[AI] needsAiRefresh but no topReviews. ProductId={id}");
+                }
+            }
 
             return Ok(product);
         }

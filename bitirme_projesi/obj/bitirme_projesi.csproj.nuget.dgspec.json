@@ -51,6 +51,10 @@
               "target": "Package",
               "version": "[9.0.9, )"
             },
+            "Mscc.GenerativeAI": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.4, )"

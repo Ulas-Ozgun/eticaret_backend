@@ -742,6 +742,11 @@
         "Name": "sortBy",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "excludeDiscounted",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

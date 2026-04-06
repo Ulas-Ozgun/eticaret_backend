@@ -1,4 +1,4 @@
-﻿using bitirme_projesi.Data;
+using bitirme_projesi.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization; // 🔹 Bunu en üste ekle, yoksa hata verir
 
@@ -24,6 +24,9 @@ builder.Services.AddControllers()
 // 🔹 PostgreSQL bağlantısı
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// 🔹 Gemini AI service
+builder.Services.AddScoped<bitirme_projesi.Services.GeminiService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
