@@ -2,3 +2,15 @@
 [Bb]in/
 [Oo]bj/
 *.user
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Local secrets
+.env
+.env.*
+appsettings.*.local.json
+secrets.json

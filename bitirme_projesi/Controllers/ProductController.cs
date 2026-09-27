@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.IO;
+using Pgvector;
+using Pgvector.EntityFrameworkCore;
 
 namespace bitirme_projesi.Controllers
 {
@@ -18,6 +20,7 @@ namespace bitirme_projesi.Controllers
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
         private readonly GeminiService _geminiService;
+        private readonly HuggingFaceEmbeddingService _embeddingService;
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<ProductController> _logger;
 
@@ -28,12 +31,14 @@ namespace bitirme_projesi.Controllers
             AppDbContext context,
             IWebHostEnvironment env,
             GeminiService geminiService,
+            HuggingFaceEmbeddingService embeddingService,
             IServiceScopeFactory scopeFactory,
             ILogger<ProductController> logger)
         {
             _context = context;
             _env = env;
             _geminiService = geminiService;
+            _embeddingService = embeddingService;
             _scopeFactory = scopeFactory;
             _logger = logger;
         }
@@ -382,6 +387,132 @@ namespace bitirme_projesi.Controllers
             }
             
             return (null, null);
+        }
+
+        [HttpPost("/api/products/visual-search")]
+        [Consumes("multipart/form-data")]
+        [RequestSizeLimit(15 * 1024 * 1024)]
+        public async Task<IActionResult> VisualSearch(
+            [FromForm(Name = "image")] IFormFile image,
+            CancellationToken cancellationToken)
+        {
+            if (image == null || image.Length == 0)
+                return BadRequest(new { message = "Görsel (image) zorunludur." });
+
+            var queryVector = await _embeddingService.GetImageEmbeddingAsync(image, cancellationToken);
+            if (queryVector == null)
+                return StatusCode(503, new { message = "Görsel vektöre dönüştürülemedi. Yerel embedding servisinin (http://127.0.0.1:8000) çalıştığından emin olun." });
+
+            try
+            {
+                var products = await SearchSimilarProductsByImageVectorAsync(queryVector, cancellationToken);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Visual search DB query failed.");
+                return StatusCode(500, new { message = "Görsel arama sırasında bir sunucu hatası oluştu." });
+            }
+        }
+
+        [HttpPost("search-by-image")]
+        [Consumes("multipart/form-data")]
+        [RequestSizeLimit(15 * 1024 * 1024)]
+        public async Task<IActionResult> SearchByImage(
+            [FromForm] ImageSearchRequest request,
+            CancellationToken cancellationToken)
+        {
+            if (request == null)
+                return BadRequest(new { message = "İstek gövdesi (multipart/form-data) zorunludur." });
+
+            var image = request.Image;
+            if (image == null || image.Length == 0)
+                return BadRequest(new { message = "Görsel (Image) zorunludur." });
+
+            var queryVector = await _embeddingService.GetImageEmbeddingAsync(image, cancellationToken);
+            if (queryVector == null)
+                return StatusCode(503, new { message = "Görsel vektöre dönüştürülemedi. Yerel embedding servisinin (http://127.0.0.1:8000/embed) çalıştığından emin olun." });
+
+            try
+            {
+                var products = await SearchSimilarProductsByImageVectorAsync(queryVector, cancellationToken);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "search-by-image DB query failed.");
+                return StatusCode(500, new { message = "Görsel arama sırasında bir sunucu hatası oluştu." });
+            }
+        }
+
+        private async Task<List<Product>> SearchSimilarProductsByImageVectorAsync(
+            Vector queryVector,
+            CancellationToken cancellationToken)
+        {
+            var products = await _context.Products
+                .AsNoTracking()
+                .Include(p => p.Category)
+                .Include(p => p.SubCategory)
+                .Include(p => p.Seller)
+                .Where(p => p.IsApproved && p.ImageVector != null)
+                .OrderBy(p => p.ImageVector!.CosineDistance(queryVector))
+                .Take(10)
+                .ToListAsync(cancellationToken);
+
+            foreach (var p in products)
+                p.ImageVector = null;
+
+            return products;
+        }
+
+        [HttpPost("/api/products/generate-all-embeddings")]
+        public async Task<IActionResult> GenerateAllEmbeddings(CancellationToken cancellationToken)
+        {
+            const int batchSize = 50;
+            const int delayMs = 500;
+            var updated = 0;
+            int? afterId = null;
+
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                IQueryable<Product> idQuery = _context.Products
+                    .AsNoTracking()
+                    .Where(p => p.ImageVector == null && !string.IsNullOrWhiteSpace(p.ImageUrl));
+
+                if (afterId.HasValue)
+                    idQuery = idQuery.Where(p => p.Id > afterId.Value);
+
+                var idBatch = await idQuery
+                    .OrderBy(p => p.Id)
+                    .Take(batchSize)
+                    .Select(p => p.Id)
+                    .ToListAsync(cancellationToken);
+
+                if (idBatch.Count == 0)
+                    break;
+
+                afterId = idBatch[^1];
+
+                var products = await _context.Products
+                    .Where(p => idBatch.Contains(p.Id))
+                    .ToListAsync(cancellationToken);
+
+                foreach (var p in products)
+                {
+                    var vec = await _embeddingService.GetImageEmbeddingFromUrlAsync(p.ImageUrl!, cancellationToken);
+                    if (vec != null)
+                    {
+                        p.ImageVector = vec;
+                        updated++;
+                    }
+
+                    await Task.Delay(delayMs, cancellationToken);
+                }
+
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+
+            return Ok(new { updated });
         }
 
         // 🔹 3️⃣ Yeni ürün ekle (FormData ile)

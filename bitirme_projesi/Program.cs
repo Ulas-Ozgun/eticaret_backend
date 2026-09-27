@@ -23,10 +23,17 @@ builder.Services.AddControllers()
 
 // 🔹 PostgreSQL bağlantısı
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        npgsql => npgsql.UseVector()));
 
 // 🔹 Gemini AI service
 builder.Services.AddScoped<bitirme_projesi.Services.GeminiService>();
+
+builder.Services.AddHttpClient<bitirme_projesi.Services.HuggingFaceEmbeddingService>(client =>
+{
+    client.Timeout = TimeSpan.FromMinutes(2);
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

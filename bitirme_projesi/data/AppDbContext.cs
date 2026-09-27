@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using bitirme_projesi.Models;
 
 
@@ -26,8 +26,16 @@ namespace bitirme_projesi.Data
 
         public DbSet<SubCategory> SubCategories { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.HasPostgresExtension("vector");
 
-
+            // Embedding boyutu (ör. CLIP / görsel model) ile aynı olmalı; modele göre migration güncellenebilir.
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ImageVector)
+                .HasColumnType("vector(512)");
+        }
     }
 }

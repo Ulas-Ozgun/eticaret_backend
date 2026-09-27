@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Pgvector;
 
 namespace bitirme_projesi.Models
 {
@@ -13,6 +14,8 @@ namespace bitirme_projesi.Models
         public decimal Price { get; set; }
         public decimal? OldPrice { get; set; }
         public string ImageUrl { get; set; }
+
+        public Vector? ImageVector { get; set; }
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
